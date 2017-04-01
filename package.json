@@ -1,7 +1,7 @@
 {
   "name": "sass-extract",
   "version": "0.4.0",
-  "description": "",
+  "description": "Extract structured variables from sass files. Fast and accurate.",
   "main": "lib/index.js",
   "scripts": {
     "compile": "babel -d lib/ src/",
@@ -11,7 +11,6 @@
   },
   "repository": "jgranstrom/sass-extract",
   "author": "John Granström <granstrom.john@gmail.com>",
-  "description": "Extract structured variables from sass files. Fast and accurate.",
   "keywords": [
     "sass",
     "scss",
@@ -29,7 +28,8 @@
     "node-sass": "^3.8.0 || ^4"
   },
   "dependencies": {
-    "bluebird": "^3.4.7"
+    "bluebird": "^3.4.7",
+    "parse-color": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",

@@ -1,17 +1,6 @@
 import sass from 'node-sass';
-
-/**
- * Convert a color value 0-255 to hex 00-FF
- */
-function toColorHex(value) {
-  let colorHex = value.toString(16);
-
-  if(colorHex.length < 2) {
-    colorHex = `0${colorHex}`;
-  }
-
-  return colorHex;
-}
+import { toColorHex } from './util';
+import { serialize } from './serialize';
 
 /**
  * Transform a sassValue into a structured value based on the value type
@@ -43,7 +32,7 @@ function makeValue(sassValue) {
       const listLength = sassValue.getLength();
       const listValue = [];
       for(let i = 0; i < listLength; i++) {
-        listValue.push(exports.createStructuredValue(sassValue.getValue(i)));
+        listValue.push(createStructuredValue(sassValue.getValue(i)));
       }
       return { value: listValue };
 
@@ -51,7 +40,9 @@ function makeValue(sassValue) {
       const mapLength = sassValue.getLength();
       const mapValue = {};
       for(let i = 0; i < mapLength; i++) {
-        mapValue[sassValue.getKey(i).getValue()] = exports.createStructuredValue(sassValue.getValue(i));
+        // Serialize map keys of arbitrary type for extracted struct
+        const serializedKey = serialize(sassValue.getKey(i));
+        mapValue[serializedKey] = createStructuredValue(sassValue.getValue(i));
       }
       return { value: mapValue };
 
