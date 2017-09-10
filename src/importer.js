@@ -60,6 +60,11 @@ function getImportAbsolutePath(url, prev, includedFilesMap, includedPaths = []) 
  * Get the resulting source and path for a given @import request
  */
 function getImportResult(extractions, url, prev, includedFilesMap, includedPaths) {
+  // Ignore .css files
+  if(path.posix.extname(url) == '.css') {
+    return undefined;
+  }
+
   const absolutePath = getImportAbsolutePath(url, prev, includedFilesMap, includedPaths);
   const contents = extractions[absolutePath].injectedData;
 
